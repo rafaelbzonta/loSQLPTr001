@@ -1,6 +1,6 @@
 # loSQLSPTr001
 
-![SQL Server](https://img.shields.io/badge/SQL%20Server-Express%202022-CC2927?logo=microsoftsqlserver&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-Express%202025-CC2927?logo=microsoftsqlserver&logoColor=white)
 ![Windows Server](https://img.shields.io/badge/Windows%20Server-2025-0078D4?logo=windows&logoColor=white)
 ![PowerShell](https://img.shields.io/badge/PowerShell-5.1+-5391FE?logo=powershell&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
