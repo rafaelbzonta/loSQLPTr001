@@ -3,7 +3,6 @@
 $NomeTarefa  = "PrintTracker - Importacao Diaria"
 $Descricao   = "Importa o CSV diario do Print Tracker para o SQL Server " + "(instancia loSQLS / banco loSQLSPTr001)"
 $ScriptPS    = "C:\PrintTracker\scripts\ScheduledTask.ps1"
-$HorarioExec = "08:30"   # formato HH:mm — 24 horas
 
 if (Get-ScheduledTask -TaskName $NomeTarefa -ErrorAction SilentlyContinue) {
     Unregister-ScheduledTask -TaskName $NomeTarefa -Confirm:$false
@@ -15,8 +14,10 @@ $acao = New-ScheduledTaskAction `
     -Argument "-NonInteractive -NoProfile -ExecutionPolicy Bypass -File `"$ScriptPS`""
 
 $gatilho = New-ScheduledTaskTrigger `
-    -Daily `
-    -At $HorarioExec
+    -RepetitionInterval (New-TimeSpan -Minutes 15) `
+    -RepetitionDuration (New-TimeSpan -Hours 24) `
+    -Once `
+    -At "00:00"
 
 $config = New-ScheduledTaskSettingsSet `
     -ExecutionTimeLimit        (New-TimeSpan -Minutes 30) `
