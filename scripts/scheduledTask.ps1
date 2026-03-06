@@ -2,12 +2,7 @@
 
 $NomeTarefa  = "PrintTracker - Importacao Diaria"
 $Descricao   = "Importa o CSV diario do Print Tracker para o SQL Server " + "(instancia loSQLS / banco loSQLSPTr001)"
-$ScriptPS    = "C:\PrintTracker\scripts\ScheduledTask.ps1"
-
-if (Get-ScheduledTask -TaskName $NomeTarefa -ErrorAction SilentlyContinue) {
-    Unregister-ScheduledTask -TaskName $NomeTarefa -Confirm:$false
-    Write-Host "[Registro] Tarefa anterior removida para recriação limpa."
-}
+$ScriptPS    = "C:\PrintTracker\scripts\importCSV.ps1"
 
 $acao = New-ScheduledTaskAction `
     -Execute  "powershell.exe" `
@@ -35,16 +30,3 @@ Register-ScheduledTask `
     -User        "NT AUTHORITY\SYSTEM" `
     -RunLevel    Highest       `
     -Force
-
-Write-Host ""
-Write-Host "[Registro] Tarefa '$NomeTarefa' registrada com sucesso."
-Write-Host "[Registro] Execução: diariamente às $HorarioExec via NT AUTHORITY\SYSTEM"
-Write-Host ""
-Write-Host "Para testar agora (sem esperar às $HorarioExec):"
-Write-Host "  Start-ScheduledTask -TaskName '$NomeTarefa'"
-Write-Host ""
-Write-Host "Para verificar o status:"
-Write-Host "  Get-ScheduledTask -TaskName '$NomeTarefa' | Select-Object TaskName, State"
-Write-Host ""
-Write-Host "Para ver o histórico de execuções (última linha = mais recente):"
-Write-Host "  Get-Content 'C:\PrintTracker\logs\import_$(Get-Date -Format 'yyyy-MM').log' -Tail 20"
